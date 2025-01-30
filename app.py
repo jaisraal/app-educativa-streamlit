@@ -1,14 +1,13 @@
-# app.py
+# app.py (versión compatible con openai>=1.0.0)
 import streamlit as st
-import openai
+from openai import OpenAI
 
-# Configura tu clave de API de OpenAI
-openai.api_key = st.secrets["openai_api_key"]
+# Configura el cliente de OpenAI con tu clave
+client = OpenAI(api_key=st.secrets["openai_api_key"])
 
-# Función para generar respuestas usando GPT
 def generar_respuesta(prompt):
-    respuesta = openai.Completion.create(
-        engine="text-davinci-003",
+    respuesta = client.completions.create(
+        model="text-davinci-003",  # Usa "model" en lugar de "engine"
         prompt=prompt,
         max_tokens=500,
         temperature=0.7
